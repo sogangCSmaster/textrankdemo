@@ -25,7 +25,7 @@ app.post('/', (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      exec(`python3 textrank/extract.py /tmp/${filename} 0.5`, (err, stdout, stderr) => {
+      exec(`python3 textrank/extract.py /tmp/${filename} 0.1`, (err, stdout, stderr) => {
         if (err) {
           next(err);
         } else {
