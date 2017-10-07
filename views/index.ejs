@@ -32,6 +32,7 @@
           var el = $(this).find('[type=submit]');
           el.addClass('loading');
           el.attr('disabled', true);
+          $('.ui.list').html('');
         });
       }(jQuery));
     </script>
