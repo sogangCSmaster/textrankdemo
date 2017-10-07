@@ -6,6 +6,11 @@
     '/>
   </head>
   <body>
+    <div>문맥타게팅 프로젝트 샘플입니다.</div>
+    <div>서버의 하드웨어가 좋은게 아니라 조금 느릴 수 있습니다.</div>
+    <div>원하시는 뉴스 본문을 복사 + 붙여넣기 하여 아래에 넣어주세요.</div>
+    <div><b>- (주)코마일 대표 유승재 -</b></div>
+
     <div class='ui container'>
       <h2 style='margin-top: 20px;'>Text Rank</h2>
       <form action='/' method='POST' class='ui form'>
@@ -28,6 +33,7 @@
           var el = $(this).find('[type=submit]');
           el.addClass('loading');
           el.attr('disabled', true);
+          $('.ui.list').html('');
         });
       }(jQuery));
     </script>
