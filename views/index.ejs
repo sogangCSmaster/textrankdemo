@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TextRank</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css
+    '/>
+  </head>
+  <body>
+    <div class='ui container'>
+      <h2 style='margin-top: 20px;'>Text Rank</h2>
+      <form action='/' method='POST' class='ui form'>
+        <textarea name='text'></textarea>
+        <button type='submit' class='ui button'>
+          submit
+        </button>
+      </form>
+      <div class='ui list'>
+        <% for (var i  = 0; i < keywords.length; i++) { %>
+          <div class='item'><%= keywords[i] %></div>
+        <% } %>
+      </div>
+    </div>
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js'></script>
+    <script>
+      (function($) {
+        $('.ui.form').submit(function() {
+          var el = $(this).find('[type=submit]');
+          el.addClass('loading');
+          el.attr('disabled', true);
+        });
+      }(jQuery));
+    </script>
+  </body>
+</html>
