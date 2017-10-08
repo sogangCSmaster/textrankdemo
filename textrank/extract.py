@@ -12,7 +12,8 @@ tr.load(RawTaggerReader(filename), lambda w: w not in stopword and (w[1] in ('NN
 tr.build()
 kw = tr.extract(rate)
 for k in sorted(kw, key=kw.get, reverse=True):
-    if len(k) == 1:
-        print(k[0][0])
-    else:
-        print('%s %s' % (k[0][0], k[1][0]))
+    text = '';
+    for i in range(len(k)):
+        text = '%s %s' % (text, k[i][0])
+    text = '%s %f' % (text, kw[k])
+    print(text)

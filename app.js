@@ -3,8 +3,22 @@ const exec = require('child_process').exec;
 const crypto = require('crypto');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const Promise = require('bluebird');
 
 const app = express();
+
+const execAsync = (cmd) => {
+  return new Promise((resolve, reject) => {
+    exec(cmd, (err, stdout, stderr) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+};
+
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -13,7 +27,8 @@ app.use(bodyParser.json())
 
 app.get('/', (req, res, next) => {
   res.render('index', {
-    keywords: []
+    keywords: [],
+    sentences: [],
   });
 });
 
@@ -25,21 +40,25 @@ app.post('/', (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      exec(`python3 textrank/extract.py /tmp/${filename} 0.1`, (err, stdout, stderr) => {
-        if (err) {
-          next(err);
-        } else {
+      Promise.all([
+        execAsync(`python3 textrank/extract.py /tmp/${filename} 0.1`),
+        execAsync(`python3 textrank/sentence.py /tmp/${filename} 0.3`)
+      ])
+        .spread((keyword, sentence) => {
           fs.unlink(`/tmp/${filename}`, (err) => {
             if (err) {
               next(err);
             } else {
               res.render('index', {
-                keywords: stdout.trim().split('\n')
+                sentences: sentence.trim().split('\n'),
+                keywords: keyword.trim().split('\n')
               });
             }
           });
-        }
-      });
+        })
+        .catch((err) => {
+          next(err);
+        });
     }
   });
 });

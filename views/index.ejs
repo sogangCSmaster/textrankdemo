@@ -12,18 +12,24 @@
     <b>- (주)코마일 대표 유승재 - </b>
   </p>
     <div class='ui container'>
-      <h2 style='margin-top: 20px;'>(주)코마일 & (주)인라이플<br>문맥 타겟팅 키워드 추출</h2>
+      <h2 style='margin-top: 20px;'>(주)코마일 &amp; (주)인라이플<br>문맥 타겟팅 키워드 추출</h2>
       <form action='/' method='POST' class='ui form'>
         <textarea name='text'></textarea>
         <button type='submit' class='ui button' style='margin-top: 20px;'>
           submit
         </button>
       </form>
-      <div class='ui list'>
+      <div class='ui list sentences'>
+        <% for (var i = 0; i < sentences.length; i++) { %>
+          <div class='item'><%= sentences[i] %></div>
+        <% } %>
+      </div>
+      <div class='ui list keywords'>
         <% for (var i  = 0; i < keywords.length; i++) { %>
           <div class='item'><%= keywords[i] %></div>
         <% } %>
       </div>
+      <div style='margin-bottom: 20px;'></div>
     </div>
     <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js'></script>
