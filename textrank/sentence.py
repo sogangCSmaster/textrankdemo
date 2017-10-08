@@ -1,5 +1,5 @@
 from textrank import TextRank, RawSentenceReader
-from konlpy.tag import Hannanum
+from konlpy.tag import Kkma
 import sys
 
 filename = sys.argv[1]
@@ -19,7 +19,7 @@ ranks = tr.rank()
 
 sentence = '%s.' % (tr.summarize(rate).split('. ')[0])
 
-hannanum = Hannanum()
+kkma = Kkma()
 print(sentence)
-print(hannanum.nouns(sentence))
+print(list(x[0] for x in (list(filter(lambda x: x[1][0] == 'N', kkma.pos(sentence))))))
 
