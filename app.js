@@ -42,15 +42,13 @@ app.post('/', (req, res, next) => {
     } else {
       Promise.all([
         execAsync(`python3 textrank/extract.py /tmp/${filename} 0.1`),
-        execAsync(`python3 textrank/sentence.py /tmp/${filename} 0.3`)
       ])
-        .spread((keyword, sentence) => {
+        .spread((keyword) => {
           fs.unlink(`/tmp/${filename}`, (err) => {
             if (err) {
               next(err);
             } else {
               res.render('index', {
-                sentences: sentence.trim().split('\n'),
                 keywords: keyword.trim().split('\n')
               });
             }
@@ -67,5 +65,5 @@ app.post('/', (req, res, next) => {
 
 
 app.listen(3000, () => {
-  console.log('Server Start');
+  console.log('Server Start, Port:3000');
 });

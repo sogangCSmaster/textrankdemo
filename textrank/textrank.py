@@ -31,11 +31,11 @@ class RawTagger:
         if tagger:
             self.tagger = tagger
         else :
-            from konlpy.tag import Komoran
-            self.tagger = Komoran()
+            from konlpy.tag import Mecab
+            self.tagger = Mecab()
         if type(textIter) == str: self.textIter = textIter.split('\n')
         else: self.textIter = textIter
-        self.rgxSplitter = re.compile('([.!?:](?:["\']|(?![0-9])))')
+        self.rgxSplitter = re.compile('([.!?:]\s(?:["\']|(?![0-9])))')
  
     def __iter__(self):
         for line in self.textIter:
@@ -49,10 +49,10 @@ class RawTaggerReader:
         if tagger:
             self.tagger = tagger
         else :
-            from konlpy.tag import Komoran
-            self.tagger = Komoran()
+            from konlpy.tag import Mecab
+            self.tagger = Mecab()
         self.filepath = filepath
-        self.rgxSplitter = re.compile('([.!?:](?:["\']|(?![0-9])))')
+        self.rgxSplitter = re.compile('([.!?:]\s(?:["\']|(?![0-9])))')
  
     def __iter__(self):
         for line in open(self.filepath, encoding='utf-8'):
